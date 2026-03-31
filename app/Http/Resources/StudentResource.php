@@ -17,7 +17,7 @@ class StudentResource extends JsonResource
         return[
             'universityNumber' => $this->university_number,
             'year' => YearResource::make($this->whenLoaded('year')),
-            'fingerprintTemplate' => $this->fingerprint_template,
+            'deviceId' => $this->device_id??null,
         ];
     }
 }

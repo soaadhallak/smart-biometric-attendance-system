@@ -22,29 +22,10 @@ class LoginStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'universityNumber' => ['required_without:fingerprintTemplate', 'string'],
-            'password' => ['required_with:universityNumber', 'string'],
-            'fingerprintTemplate' => ['required_without:universityNumber'],
+            'universityNumber' => ['required', 'string'],
+            'password' => ['required', 'string'],
+            'deviceId' => ['required', 'string'],
         ];
     }
 
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-
-        $hasPasswordLogin =
-            !empty($this->input('universityNumber')) &&
-            !empty($this->input('password'));
-
-        $hasFingerprintLogin =
-            !empty($this->input('fingerprintTemplate'));
-
-        if (!$hasPasswordLogin && !$hasFingerprintLogin) {
-            $validator->errors()->add(
-                'login',
-                'You must provide university number & password or fingerprint.'
-            );
-        }
-        });
-    }
 }

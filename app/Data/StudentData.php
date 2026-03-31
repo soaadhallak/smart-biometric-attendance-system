@@ -19,7 +19,6 @@ class StudentData extends Data
         public ?string $universityNumber,
         #[Exists('years','id')]
         public ?int $yearId,
-        public ?string $fingerprintTemplate,
-        public ?string $fingerprintIdentifier
+        public ?string $deviceId = null
     ) {}
 }

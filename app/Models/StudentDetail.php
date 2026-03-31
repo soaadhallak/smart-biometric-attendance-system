@@ -13,17 +13,10 @@ class StudentDetail extends Model
     protected $fillable = [
         'user_id',
         'university_number',
-        'fingerprint_template',
         'year_id',
-        'fingerprint_identifier'
+        'device_id',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'fingerprint_template' => 'hashed',
-        ];
-    }
 
     public function user(): BelongsTo
     {

@@ -8,6 +8,7 @@ use App\Http\Requests\LectureFilterRequest;
 use App\Http\Resources\CourseResource;
 use App\Services\CourseService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 
 class GetAllStudentLecturesController extends Controller
 {

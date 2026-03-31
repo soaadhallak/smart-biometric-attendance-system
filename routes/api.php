@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Api\Admin\CourseController;
 use App\Http\Controllers\Api\Admin\LectureController;
 use App\Http\Controllers\Api\Admin\TeacherController;
+use App\Http\Controllers\Api\Student\DeviceController;
 use App\Http\Controllers\Api\Student\GetAllStudentLecturesController;
 
 Route::get('/hello', function(){
@@ -19,6 +20,7 @@ Route::prefix('auth')->group(function(){
     Route::post('/login',[AuthController::class,'login']);
     Route::post('/logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
 });
+
 
 
 Route::apiResource("user", StudentController::class)->middleware(['auth:sanctum','role:admin']);

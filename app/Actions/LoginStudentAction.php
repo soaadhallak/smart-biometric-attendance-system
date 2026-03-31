@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Actions;
 
 use App\Data\UserData;
@@ -9,59 +10,41 @@ use App\Data\StudentData;
 use Illuminate\Support\Facades\DB;
 use App\Models\StudentDetail;
 
-class LoginStudentAction{
+class LoginStudentAction
+{
 
     public function execute(UserData $userData, StudentData $studentData): array
     {
-        return DB::transaction(function () use ($userData,$studentData) {
+        return DB::transaction(function () use ($userData, $studentData) {
 
-            if ($studentData->universityNumber) {
-                $user = $this->loginWithUniversityNumber($studentData->universityNumber, $userData->password);
-            }
-            else {
-                $user = $this->loginWithFingerprint($studentData->fingerprintTemplate);
+            $user = User::whereHas('studentDetail', function ($q) use ($studentData) {
+                $q->where('university_number', $studentData->universityNumber);
+            })->first();
+
+            if (!$user || !Hash::check($userData->password, $user->password)) {
+                throw ValidationException::withMessages([
+                    'credentials' => ['Invalid credentials'],
+                ]);
             }
 
-            $token=$user->createToken('user-token')->plainTextToken;
+            $token = $user->createToken('user-token')->plainTextToken;
+
+            $studentDetail = $user->studentDetail;
+
+            if (is_null($studentDetail->device_id)) {
+                    $studentDetail->update($studentData->onlyModelAttributes());
+                } else {
+                    if ($studentData->deviceId !== $studentDetail->device_id) {
+                        throw ValidationException::withMessages([
+                            'device' => ['You can only login from the device you registered with.'],
+                        ]);
+                    }
+                }
 
             return [
                 'user'  => $user,
                 'token' => $token,
             ];
         });
-
     }
-
-    private function loginWithUniversityNumber(string $universityNumber, string $password)
-    {
-        $user = User::whereHas('studentDetail', function ($q) use ($universityNumber) {
-            $q->where('university_number', $universityNumber);
-        })->first();
-
-        if (!$user || !Hash::check($password, $user->password)) {
-            throw ValidationException::withMessages([
-                'credentials' => ['Invalid credentials'],
-            ]);
-        }
-
-        return $user;
-
-    }
-
-    private function loginWithFingerprint(string $fingerprintTemplate): User
-    {
-        $identifier = hash('sha256', $fingerprintTemplate);
-
-        $student = StudentDetail::with('user')
-            ->where('fingerprint_identifier', $identifier)
-            ->first();
-
-        if (!$student || !Hash::check($fingerprintTemplate, $student->fingerprint_template)) {
-            throw ValidationException::withMessages([
-                'fingerprint' => ['Fingerprint not recognized'],
-            ]);
-        }
-
-        return $student->user;
-    }               
 }

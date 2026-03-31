@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'role ' => $this->whenLoaded('roles', fn() => $this->getRoleNames()->first()),
-            'studentDetailes' => StudentResource::make($this->whenLoaded('studentDetail')),
+            'studentDetailes' => StudentResource::make($this->whenLoaded('studentDetail'))
         ];
     }
 }

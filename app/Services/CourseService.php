@@ -51,6 +51,7 @@ class CourseService
             ->paginate(10)
             ->withQueryString();
 
+
         return $courses;
     }
 }

@@ -27,21 +27,8 @@ class RegisterStudentRequest extends FormRequest
             'universityNumber' => ['required', 'string', 'max:50', 'unique:student_details,university_number'],
             'yearId' => ['required', 'exists:years,id'],
             'password'=>['required', 'string', Rules\Password::default()],
-            'fingerprintTemplate' => ['required', 'string'],
-            'fingerprintIdentifier' => ['required', 'string', 'unique:student_details,fingerprint_identifier']
+            'deviceId' => ['required', 'string', 'unique:student_details,device_id'],
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        if ($this->filled('fingerprintTemplate')) {
-        $this->merge([
-            'fingerprintIdentifier' => hash(
-                'sha256',
-                $this->input('fingerprintTemplate')
-            ),
-        ]);
-    }
     }
 
 
