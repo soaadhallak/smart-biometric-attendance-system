@@ -19,6 +19,7 @@ class LectureResource extends JsonResource
             ->setTimeFromTimeString($this->getRawOriginal('start_time'));
 
         return [
+            'id' => $this->id,
             'course' => CourseResource::make($this->whenLoaded('course')),
             'lectureDateAndTime' => $actualDate->format('l h:i A'),
             'endTime' => Carbon::parse($this->end_time)->format('h:i A'),

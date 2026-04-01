@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Api\Admin\CourseController;
 use App\Http\Controllers\Api\Admin\LectureController;
 use App\Http\Controllers\Api\Admin\TeacherController;
+use App\Http\Controllers\Api\Student\AttendanceController;
 use App\Http\Controllers\Api\Student\DeviceController;
 use App\Http\Controllers\Api\Student\GetAllStudentLecturesController;
 
@@ -36,3 +37,4 @@ Route::apiResource("course", CourseController::class)->middleware(['auth:sanctum
 Route::apiResource("lecture", LectureController::class)->middleware(['auth:sanctum', 'role:admin']);
 
 Route::get('/student/lectures',GetAllStudentLecturesController::class)->middleware(['auth:sanctum','role:student']);
+Route::apiResource('attendances', AttendanceController::class)->middleware(['auth:sanctum','role:student']);  
