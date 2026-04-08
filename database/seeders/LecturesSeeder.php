@@ -12,7 +12,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
-class CourseLectureTwoSeeder extends Seeder
+class LecturesSeeder extends Seeder
 {
     use WithoutModelEvents;
 
