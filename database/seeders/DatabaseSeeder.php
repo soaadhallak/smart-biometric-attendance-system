@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             YearSeeder::class,
-            CourseLectureSeeder::class,
+            StudentSystemSeeder::class,
         ]);
 
         $user = User::firstOrCreate(
