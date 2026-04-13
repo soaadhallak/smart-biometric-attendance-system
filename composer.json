@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.10.1",
         "mustafafares/laravel-auto-crud": "^5.0",
         "spatie/laravel-data": "^4.19",
+        "spatie/laravel-medialibrary": "^11.21",
         "spatie/laravel-permission": "^7.2",
         "spatie/laravel-query-builder": "^6.4"
     },

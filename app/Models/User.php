@@ -10,12 +10,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Mrmarchone\LaravelAutoCrud\Traits\HasMediaConversions;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens, HasRoles;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles, HasMediaConversions;
 
     /**
      * The attributes that are mass assignable.
@@ -80,5 +83,10 @@ class User extends Authenticatable
     public function teachingCourses(): HasMany
     {
         return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('profile')->singleFile();
     }
 }

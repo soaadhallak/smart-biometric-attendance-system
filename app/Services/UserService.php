@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Data\UserData;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Mrmarchone\LaravelAutoCrud\Helpers\MediaHelper;
 
 class UserService
 {
@@ -13,6 +15,10 @@ class UserService
         return DB::transaction(function () use ($user, $userData) {
 
             tap($user)->update($userData->onlyModelAttributes());
+
+            if($userData->avatar instanceof UploadedFile){
+                MediaHelper::uploadMedia($userData->avatar,$user,'profile');
+            }
 
             return $user;
         });

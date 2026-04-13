@@ -24,7 +24,8 @@ class UpdateProfileRequest extends FormRequest
         return [
             'name' => ['sometimes', 'string', 'max:255'],
             'universityNumber' => ['bail', 'sometimes', 'string', 'max:50', 'unique:student_details,university_number'],
-            'yearId' => ['sometimes', 'exists:years,id']
+            'yearId' => ['sometimes', 'exists:years,id'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         ];
     }
 }

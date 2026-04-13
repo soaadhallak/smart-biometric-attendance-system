@@ -15,7 +15,7 @@ use Spatie\LaravelData\Attributes\Validation\Max;
 use Spatie\LaravelData\Attributes\Validation\Min;
 use Spatie\LaravelData\Attributes\Validation\Rule;
 use Spatie\LaravelData\Attributes\Validation\Unique;
-
+use Spatie\LaravelData\Optional;
 
 class UserData extends Data
 {
@@ -33,5 +33,6 @@ class UserData extends Data
         public ?Carbon $emailVerifiedAt,
         #[Max(255)]
         public ?string $rememberToken,
+        public UploadedFile|Optional|null $avatar
     ) {}
 }
