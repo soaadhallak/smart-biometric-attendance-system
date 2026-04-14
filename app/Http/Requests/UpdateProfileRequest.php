@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -21,9 +23,10 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
             'name' => ['sometimes', 'string', 'max:255'],
-            'universityNumber' => ['bail', 'sometimes', 'string', 'max:50', 'unique:student_details,university_number'],
+            'universityNumber' => ['sometimes', 'string', 'max:50', Rule::unique('student_details', 'university_number')->ignore(Auth::id(), 'user_id')],
             'yearId' => ['sometimes', 'exists:years,id'],
             'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
         ];
