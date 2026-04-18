@@ -15,6 +15,7 @@ class CourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'teacher' => UserResource::make($this->whenLoaded('teacher')),
             'lectures' => LectureResource::collection($this->whenLoaded('lectures')),

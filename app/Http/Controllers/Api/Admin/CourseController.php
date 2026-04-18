@@ -22,7 +22,7 @@ class CourseController extends Controller
 
     public function index(): AnonymousResourceCollection
     {
-        $courses = Course::with(['teacher.roles'])->paginate(10);
+        $courses = Course::with(['teacher.roles'])->get();
 
         return CourseResource::collection($courses)
             ->additional([
