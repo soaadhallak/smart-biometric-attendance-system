@@ -32,8 +32,8 @@ Route::prefix('profile')->middleware(['auth:sanctum','role:student'])->group(fun
 
 
 
-Route::apiResource("user", StudentController::class)->middleware(['auth:sanctum','role:admin']);
-Route::apiResource("teacher", TeacherController::class)->middleware(['auth:sanctum','role:admin']);
+Route::apiResource("user", StudentController::class)->middleware(['auth:sanctum','role:admin|teacher']);
+Route::apiResource("teacher", TeacherController::class)->middleware(['auth:sanctum','role:admin|teacher']);
 
 Route::prefix('auth/user')->group(function(){
     Route::post('/',[AdminAuthController::class,'register']);
@@ -42,13 +42,13 @@ Route::prefix('auth/user')->group(function(){
 });
 
 Route::apiResource("course", CourseController::class)->middleware(['auth:sanctum']);
-Route::apiResource("lecture", LectureController::class)->middleware(['auth:sanctum', 'role:admin']);
+Route::apiResource("lecture", LectureController::class)->middleware(['auth:sanctum', 'role:admin|teacher']);
 
 Route::get('/student/lectures',GetAllStudentLecturesController::class)->middleware(['auth:sanctum','role:student']);
 Route::apiResource('attendances', AttendanceController::class)->middleware(['auth:sanctum','role:student']);  
 Route::get('/statistics', StatisticsAttendanceController::class)->middleware(['auth:sanctum','role:student']);
 
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:admin|teacher'])->group(function () {
     Route::get('/admin/statistics', AdminCourseStatsController::class);
 });
 
