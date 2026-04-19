@@ -14,10 +14,13 @@ class StudentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return[
+        return [
             'universityNumber' => $this->university_number,
             'year' => YearResource::make($this->whenLoaded('year')),
-            'deviceId' => $this->device_id??null,
+            'deviceId' => $this->device_id ?? null,
+            'isHaveCourses' => $this->user
+                ->enrollments()
+                ->exists(),
         ];
     }
 }
