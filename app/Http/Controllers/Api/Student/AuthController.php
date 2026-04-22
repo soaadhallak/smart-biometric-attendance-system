@@ -35,7 +35,7 @@ class AuthController extends Controller
         $user = $result['user'];
         $token = $result['token'];
 
-        return UserResource::make($user->load(['studentDetail.year','roles', 'media']))
+        return UserResource::make($user->load(['studentDetail.year','roles', 'media', 'studentDetail.major']))
             ->additional([
                 'message' => ResponseMessages::CREATED->message(),
                 'token' => $token
@@ -49,7 +49,7 @@ class AuthController extends Controller
         $user=$result['user'];
         $token=$result['token'];
 
-        return UserResource::make($user->load(['studentDetail.year','roles', 'media']))
+        return UserResource::make($user->load(['studentDetail.year','roles', 'media', 'studentDetail.major']))
             ->additional([
                 'message'=>ResponseMessages::RETRIEVED->message(),
                 'token'=>$token
