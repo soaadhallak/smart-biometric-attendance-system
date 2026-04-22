@@ -15,12 +15,18 @@ class Course extends Model
     protected $fillable = [
         'name',
         'teacher_id',
+        'major_id',
     ];
 
 
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    public function major(): BelongsTo
+    {
+        return $this->belongsTo(Major::class);
     }
 
     public function lectures(): HasMany

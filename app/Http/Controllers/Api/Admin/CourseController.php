@@ -37,7 +37,7 @@ class CourseController extends Controller
     {
         $course = $this->courseService->store(CourseData::from($request->validated()));
 
-        return CourseResource::make($course->load('teacher.roles'))
+        return CourseResource::make($course->load('teacher.roles', 'major'))
             ->additional([
                 'message' => ResponseMessages::CREATED->message(),
             ])->response()
@@ -49,7 +49,7 @@ class CourseController extends Controller
      */
     public function show(Course $course): CourseResource
     {
-        return CourseResource::make($course->load('teacher.roles'))
+        return CourseResource::make($course->load('teacher.roles', 'major'))
             ->additional([
                 'message' => ResponseMessages::RETRIEVED->message(),
             ]);
@@ -62,7 +62,7 @@ class CourseController extends Controller
     {
         $course = $this->courseService->update($course, CourseData::from($request->validated()));
 
-        return CourseResource::make($course->load('teacher.roles'))
+        return CourseResource::make($course->load('teacher.roles', 'major'))
             ->additional([
                 'message' => ResponseMessages::UPDATED->message(),
             ]);

@@ -8,7 +8,7 @@ use App\Models\Lecture;
 use App\Models\Attendance;
 use App\Models\StudentDetail;
 use App\Models\Enrollment;
-use App\Models\Year;
+use App\Models\Major;
 use App\Enums\AttendanceStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -18,6 +18,7 @@ class StudentSystemSeeder extends Seeder
 {
     public function run()
     {
+        $major = Major::firstOrCreate(['name' => 'هندسة برمجيات']);
         $teacher = User::firstOrCreate(
             ['email' => 'teacher@university.edu'],
             [
@@ -52,6 +53,7 @@ class StudentSystemSeeder extends Seeder
                 [
                     'user_id' => $user->id,
                     'year_id' => 1,
+                    'major_id' => $major->id,
                     'device_id' => 'SP1A.210812.016'
                 ]
             );

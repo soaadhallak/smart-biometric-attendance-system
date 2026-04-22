@@ -19,6 +19,8 @@ class StudentData extends Data
         public ?string $universityNumber,
         #[Exists('years','id')]
         public ?int $yearId,
+        #[Exists('majors','id')]
+        public ?int $majorId,
         public ?string $deviceId = null
     ) {}
 }

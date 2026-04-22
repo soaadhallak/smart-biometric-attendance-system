@@ -70,7 +70,7 @@ class AuthController extends Controller
     public function getProfile(): UserResource
     {
         $user = Auth::user();
-        return UserResource::make($user->load(['studentDetail.year', 'media']))
+        return UserResource::make($user->load(['studentDetail.year', 'media', 'studentDetail.major']))
             ->additional([
                 'message' => ResponseMessages::RETRIEVED->message()
             ]);
@@ -81,7 +81,7 @@ class AuthController extends Controller
         $user = $this->userService->update(Auth::user(), UserData::from($request->validated()));
         $student = $this->studentService->update($user->studentDetail, studentData::from($request->validated()));
 
-        return UserResource::make($user->load(['studentDetail.year', 'media']))
+        return UserResource::make($user->load(['studentDetail.year', 'media', 'studentDetail.major']))
             ->additional([
                 'message' => ResponseMessages::UPDATED->message()
             ]);

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Admin\TeacherController;
 use App\Http\Controllers\Api\Student\AddEnrollmentsForStudentController;
 use App\Http\Controllers\Api\Student\AttendanceController;
 use App\Http\Controllers\Api\Student\DeviceController;
+use App\Http\Controllers\Api\Student\GetAllCoursesForStudentController;
 use App\Http\Controllers\Api\Student\GetAllStudentLecturesController;
 use App\Http\Controllers\Api\Student\StatisticsAttendanceController;
 
@@ -41,7 +42,7 @@ Route::prefix('auth/user')->group(function(){
     Route::post('/logout',[AdminAuthController::class,'logout'])->middleware('auth:sanctum');
 });
 
-Route::apiResource("course", CourseController::class)->middleware(['auth:sanctum']);
+Route::apiResource("course", CourseController::class)->middleware(['auth:sanctum', 'role:admin|teacher']);
 Route::apiResource("lecture", LectureController::class)->middleware(['auth:sanctum', 'role:admin|teacher']);
 
 Route::get('/student/lectures',GetAllStudentLecturesController::class)->middleware(['auth:sanctum','role:student']);
@@ -53,3 +54,4 @@ Route::middleware(['auth:sanctum', 'role:admin|teacher'])->group(function () {
 });
 
 Route::post('/enrollments', AddEnrollmentsForStudentController::class)->middleware(['auth:sanctum', 'role:student']);
+Route::get('/courses', GetAllCoursesForStudentController::class)->middleware(['auth:sanctum', 'role:student']);

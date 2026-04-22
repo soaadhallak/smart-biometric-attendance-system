@@ -15,6 +15,7 @@ class StudentDetail extends Model
         'university_number',
         'year_id',
         'device_id',
+        'major_id',
     ];
 
 
@@ -26,5 +27,10 @@ class StudentDetail extends Model
     public function year(): BelongsTo
     {
         return $this->belongsTo(Year::class);
+    }
+
+    public function major(): BelongsTo
+    {
+        return $this->belongsTo(Major::class);
     }
 }

@@ -17,6 +17,8 @@ class CourseData extends Data
         #[Max(255)]
         public ?string $name,
         #[Exists('users', 'id')]
-        public ?int $teacherId
+        public ?int $teacherId,
+        #[Exists('majors', 'id')]
+        public ?int $majorId
     ) {}
 }

@@ -24,6 +24,7 @@ class CourseUpdateRequest extends FormRequest
         return [
             'name' => ['sometimes', 'string', 'max:255'],
             'teacherId' => ['sometimes', 'exists:users,id'],
+            'majorId' => ['sometimes', 'exists:majors,id'],
         ];
     }
 }

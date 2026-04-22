@@ -23,7 +23,8 @@ class CourseStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'teacherId' => ['required', 'exists:users,id']
+            'teacherId' => ['required', 'exists:users,id'],
+            'majorId' => ['required', 'exists:majors,id'],
         ];
     }
 }

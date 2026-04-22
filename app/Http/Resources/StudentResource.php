@@ -17,6 +17,7 @@ class StudentResource extends JsonResource
         return [
             'universityNumber' => $this->university_number,
             'year' => YearResource::make($this->whenLoaded('year')),
+            'major' => MajorResource::make($this->whenLoaded('major')),
             'deviceId' => $this->device_id ?? null,
             'isHaveCourses' => $this->user
                 ->enrollments()
