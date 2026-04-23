@@ -12,6 +12,8 @@ use App\Http\Controllers\Api\Admin\TeacherController;
 use App\Http\Controllers\Api\Student\AddEnrollmentsForStudentController;
 use App\Http\Controllers\Api\Student\AttendanceController;
 use App\Http\Controllers\Api\Student\DeviceController;
+use App\Http\Controllers\Api\Admin\DataCleanupController;
+use App\Http\Controllers\Api\Student\DeleteAllEnrollmentsAndLecturesController;
 use App\Http\Controllers\Api\Student\GetAllCoursesForStudentController;
 use App\Http\Controllers\Api\Student\GetAllStudentLecturesController;
 use App\Http\Controllers\Api\Student\StatisticsAttendanceController;
@@ -55,3 +57,4 @@ Route::middleware(['auth:sanctum', 'role:admin|teacher'])->group(function () {
 
 Route::post('/enrollments', AddEnrollmentsForStudentController::class)->middleware(['auth:sanctum', 'role:student']);
 Route::get('/courses', GetAllCoursesForStudentController::class)->middleware(['auth:sanctum', 'role:student']);
+Route::delete('/cleanup', DeleteAllEnrollmentsAndLecturesController::class)->middleware(['auth:sanctum', 'role:admin']);

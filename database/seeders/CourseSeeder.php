@@ -22,11 +22,13 @@ class CourseSeeder extends Seeder
         $getTeacher = function ($name) use (&$teachers) {
 
             if (!isset($teachers[$name])) {
+                $email = Str::slug($name, '.') . '@example.com';
+
                 $user = User::firstOrCreate(
-                    ['name' => $name],
+                    ['email' => $email], 
                     [
+                        'name' => $name,
                         'password' => bcrypt('password'),
-                        'email' => Str::slug($name, '.') . '@example.com'
                     ]
                 );
 
@@ -59,6 +61,30 @@ class CourseSeeder extends Seeder
             ['مهارات نظري', ['نجوى'], $software],
             ['رياضيات', ['ايات'], $software],
             ['لغة', ['سلاف'], $software],
+            ['برمجة متقدمة عملي', ['مهند'], $software],
+            ['برمجة متقدمة نظري', ['مهند'], $software],
+            ['تطبيقات ويب', ['مها'], $software],
+            ['تحليل نظم عملي', ['نوران'], $software],
+            ['تحليل نظم نظري', ['نوران'], $software],
+            ['قواعد معطيات عملي', ['اية'], $software],
+            ['قواعد معطيات نظري', ['اية'], $software],
+            ['تحليل نظم معلومات عملي', ['اية'], $software],
+            ['تحليل نظم معلومات نظري', ['اية'], $software],
+            ['لغة', ['شادي'], $software],
+            ['عربي', ['اسراء'], $software],
+            ['قواعد عملي', ['اية'], $software],
+            ['قواعد نظري', ['اية'], $software],
+            ['ادارة محتوى عملي', ['مها'], $software],
+            ['ادارة محتوى نظري', ['مها'], $software],
+            ['وسائط عملي', ['نسرين'], $software],
+            ['وسائط نظري', ['نسرين'], $software],
+            ['رياضيات نظري', ['نسرين'], $software],
+            ['رياضيات عملي', ['نسرين'], $software],
+            ['ذكية نظري', ['نجوى'], $software],
+            ['ذكية عملي', ['نجوى'], $software],
+
+
+
 
             // شبكات
             ['شبكات واسعة', ['نور كنعان'], $networks],
