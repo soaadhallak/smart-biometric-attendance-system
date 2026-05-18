@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\Admin\DataCleanupController;
 use App\Http\Controllers\Api\Student\DeleteAllEnrollmentsAndLecturesController;
 use App\Http\Controllers\Api\Student\GetAllCoursesForStudentController;
 use App\Http\Controllers\Api\Student\GetAllStudentLecturesController;
+use App\Http\Controllers\Api\Student\GetStudentCoursesController;
 use App\Http\Controllers\Api\Student\StatisticsAttendanceController;
 
 Route::get('/hello', function(){
@@ -48,6 +49,7 @@ Route::apiResource("course", CourseController::class)->middleware(['auth:sanctum
 Route::apiResource("lecture", LectureController::class)->middleware(['auth:sanctum', 'role:admin|teacher']);
 
 Route::get('/student/lectures',GetAllStudentLecturesController::class)->middleware(['auth:sanctum','role:student']);
+Route::get('/student/courses', GetStudentCoursesController::class)->middleware(['auth:sanctum','role:student']);
 Route::apiResource('attendances', AttendanceController::class)->middleware(['auth:sanctum','role:student']);  
 Route::get('/statistics', StatisticsAttendanceController::class)->middleware(['auth:sanctum','role:student']);
 
